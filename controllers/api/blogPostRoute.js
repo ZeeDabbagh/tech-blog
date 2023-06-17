@@ -1,30 +1,13 @@
+//get 
+//get by ID
+//post
+//update by ID
+//delete by ID
+
 const router = require('express').Router();
 const { truncate } = require('graceful-fs');
 const {Blog, Comment, User} = require('../../models');
 const withAuth = require('../../utils/auth');
-
-
-router.get('/', async (req, res) => {
-  res.render('homepage');
-});
-
-router.get('/login', (req, res) => {
-  if (req.session.logged_in) {
-    res.redirect('/');
-    return;
-  }
-
-  res.render('login');
-});
-
-router.get('/register', (req, res) => {
-  if (req.session.loggedIn) {
-    res.redirect('/');
-    return;
-  }
-
-  res.render('register');
-});
 
 router.get('/', async (req, res) => {
     try{
