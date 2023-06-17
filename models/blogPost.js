@@ -27,7 +27,7 @@ Blog.init(
         },
         blog_date: {
             type: DataTypes.DATEONLY,
-            defaultValue: Date.now(),
+            defaultValue: DataTypes.NOW,
             allowNull: false
         },
         user_id: {
@@ -37,11 +37,13 @@ Blog.init(
                 key: 'id'
             }
         },
+    },
+    {
         sequelize,
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: "user",
+        modelName: 'blog',
     }
 )
 
