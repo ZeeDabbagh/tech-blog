@@ -2,14 +2,22 @@ const router = require('express').Router()
 const { Blog, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
+const withAuth000 = (req,res,next)=>{
+    next();
+}
+
 //Post new blog
-router.post('/', withAuth, async (req, res) => {
+router.post('/', withAuth000, async (req, res) => {
+    
+    // Example request body
+    //     {
+    //         title: req.body.title,
+    //         blog_text: req.body.blog_text,
+    //         user_id: req.session.user_id
+    //     }
+    
     try {
-        const newBlog = await Blog.create({
-            title: req.body.title,
-            blog_text: req.body.blog_text,
-            userId: req.session.user_id
-        })
+        const newBlog = await Blog.create(req.body)
         console.log(newBlog)
         res.status(201).json(newBlog)
         
@@ -21,7 +29,7 @@ router.post('/', withAuth, async (req, res) => {
 
 //Update a blog
 
-router.put('/:id', withAuth, async (req, res) => {
+router.put('/:blog_id', withAuth000, async (req, res) => {
     try {
 
         const blog = await Blog.update({
@@ -29,7 +37,7 @@ router.put('/:id', withAuth, async (req, res) => {
             blog_text: req.body.blog_text
         },
         {
-            where:{ id: req.params.id, userId: req.session.user_id},
+            where:{ id: req.params.blog_id},
         })
 
         if(blog) {
@@ -46,18 +54,17 @@ router.put('/:id', withAuth, async (req, res) => {
 
 //Delete blog
 
-router.delete('/:id', withAuth, async (req, res) => {
+router.delete('/:blog_id', withAuth000, async (req, res) => {
     try{
         const deleteBlog = await Blog.destroy({
             where:
             {
-                id: req.params.id,
-                userId: req.session.user_id
+                id: req.params.blog_id,
             }
         })
 
         if (deleteBlog) {
-            res.status(200).json({message: 'Blog deleted'}, deleteBlog)
+            res.status(200).json({message: 'Blog deleted', info:deleteBlog})
         } else {
             res.status(404).json({message: 'No such blog found'})
         }
@@ -68,13 +75,13 @@ router.delete('/:id', withAuth, async (req, res) => {
 })
 
 //Create new comment
-router.post('/:id/comments', withAuth, async (req, res) =>{
+router.post('/:blog_id/comments', withAuth000, async (req, res) =>{
     try {
 
         const comment = await Comment.create({
             comment_text: req.body.comment_text,
-            userId: req.session.user_id,
-            blogId: req.params.id
+            user_id: req.session.user_id,
+            blog_id: req.params.blog_id
         })
         res.status(200).json(comment)
 

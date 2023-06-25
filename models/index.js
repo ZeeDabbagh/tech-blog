@@ -8,7 +8,6 @@ User.hasMany(Blog, {
 })
 
 Blog.belongsTo(User, {
-    as:'author',
     foreignKey: 'user_id'
 })
 

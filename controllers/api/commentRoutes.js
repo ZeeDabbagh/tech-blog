@@ -2,15 +2,17 @@ const router = require('express').Router()
 const { Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
+const withAuth000 = (req,res,next)=>{
+    next();
+}
 //Update existing comment
 
-router.put('/comments/:id', withAuth, async (req, res) => {
+router.put('/:comment_id', withAuth000, async (req, res) => {
     try {
         const comment = await Comment.update({comment_text: req.body.comment_text},
             {
             where:  {
-                id: req.params.id,
-                userId: req.session.user_id
+                id: req.params.comment_id,
                 }
             })
 
@@ -28,12 +30,12 @@ router.put('/comments/:id', withAuth, async (req, res) => {
 
 //Delete comment
 
-router.delete('/comments/:id', withAuth, async (req, res) => {
+router.delete('/:comment_id', withAuth000, async (req, res) => {
     try {
         const comment = await Comment.destroy({
             where: {
-                id: req.params.id,
-                userId: req.session.user_id
+                id: req.params.comment_id, 
+                user_id: req.session.user_id
             }
         })
 
