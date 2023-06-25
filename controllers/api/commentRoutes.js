@@ -2,24 +2,6 @@ const router = require('express').Router()
 const { Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-//Post new comment
-
-router.post('/blogs/:id/comments', withAuth, async (req, res) =>{
-    try {
-
-        const comment = await Comment.create({
-            comment_text: req.body.comment_text,
-            userId: req.session.userId,
-            blogId: req.params.id
-        })
-        res.status(200).json(comment)
-
-    } catch(err) {
-        console.log(err)
-        res.status(500).json(err)
-    }
-});
-
 //Update existing comment
 
 router.put('/comments/:id', withAuth, async (req, res) => {
@@ -28,7 +10,7 @@ router.put('/comments/:id', withAuth, async (req, res) => {
             {
             where:  {
                 id: req.params.id,
-                userId: req.session.userId
+                userId: req.session.user_id
                 }
             })
 
@@ -51,7 +33,7 @@ router.delete('/comments/:id', withAuth, async (req, res) => {
         const comment = await Comment.destroy({
             where: {
                 id: req.params.id,
-                userId: req.session.userId
+                userId: req.session.user_id
             }
         })
 

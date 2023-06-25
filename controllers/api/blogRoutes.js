@@ -1,36 +1,14 @@
 const router = require('express').Router()
-const { Blog } = require('../../models');
+const { Blog, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-// //get by ID
-// router.get('/:id', withAuth, async (req, res) => {
-//     try{
-//         const blogData = await Blog.findByPk(req.params.id, {
-//             include:[{model: User, attributes:'name'}, {model: Comment, foreignKey: 'blog_id'}],
-//         })
-
-//         if (!blogData) {
-//             res.status(404).json({ message: 'No post found' });
-//             return;
-//         }
-//         const blog = blogData.get({ plain: true });
-
-//         res.render('blog', {loggedIN: req.session.logged_in, blog})
-//     } catch (err) {
-//         console.log('error')
-//         res.redirect('/')
-//         res.status(500).json(err)
-//     }
-// })
-
-//post
-
+//Post new blog
 router.post('/', withAuth, async (req, res) => {
     try {
         const newBlog = await Blog.create({
             title: req.body.title,
             blog_text: req.body.blog_text,
-            userId: req.session.userId
+            userId: req.session.user_id
         })
         console.log(newBlog)
         res.status(201).json(newBlog)
@@ -40,23 +18,6 @@ router.post('/', withAuth, async (req, res) => {
         res.status(500).json(err);
     }
 })
-
-// //Get form to edit blog
-// router.get('/:id/edit', withAuth, async (req, res) => {
-//     try {
-//         const blog = await Blog.findByPk(req.params.id)
-
-//         if (blog) {
-//             res.render('edit-blog', {blog})
-//         } else {
-//             res.status(404).json({message: 'Blog not found'})
-//         }
-    
-//     } catch(err){
-//         console.log(err)
-//         res.status(500).json(err);
-//     }
-// })
 
 //Update a blog
 
@@ -68,11 +29,11 @@ router.put('/:id', withAuth, async (req, res) => {
             blog_text: req.body.blog_text
         },
         {
-            where:{ id: req.params.id, userId: req.session.userId},
+            where:{ id: req.params.id, userId: req.session.user_id},
         })
 
         if(blog) {
-            res.json(blog)
+            res.status(200).json(blog)
         } else {
             res.status(404).json({message:'No such blog exists.'});
         }
@@ -83,20 +44,7 @@ router.put('/:id', withAuth, async (req, res) => {
     }
 })
 
-
-        // if (blog) {
-        //     const { title, blog_text } = req.body
-        //     await blog.update({
-        //         title,
-        //         blog_text
-        //     })
-        //     res.json(blog)
-        // } else {
-        //     res.status(404).json({message: 'Blog post not found'})
-        // }
-
-
-//delete by ID
+//Delete blog
 
 router.delete('/:id', withAuth, async (req, res) => {
     try{
@@ -104,12 +52,12 @@ router.delete('/:id', withAuth, async (req, res) => {
             where:
             {
                 id: req.params.id,
-                userId: req.session.userId
+                userId: req.session.user_id
             }
         })
 
         if (deleteBlog) {
-            res.status(200).json({message: 'Blog deleted'})
+            res.status(200).json({message: 'Blog deleted'}, deleteBlog)
         } else {
             res.status(404).json({message: 'No such blog found'})
         }
@@ -118,5 +66,25 @@ router.delete('/:id', withAuth, async (req, res) => {
         res.status(500).json(err)
     }
 })
+
+//Create new comment
+router.post('/:id/comments', withAuth, async (req, res) =>{
+    try {
+
+        const comment = await Comment.create({
+            comment_text: req.body.comment_text,
+            userId: req.session.user_id,
+            blogId: req.params.id
+        })
+        res.status(200).json(comment)
+
+    } catch(err) {
+        console.log(err)
+        res.status(500).json(err)
+    }
+});
+
+
+
 
 module.exports = router

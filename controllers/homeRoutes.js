@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {Blog, User} = require('../models');
+const {Blog, User, Comment} = require('../models');
 const withAuth = require('../utils/auth');
 
 
@@ -7,74 +7,76 @@ const withAuth = require('../utils/auth');
 router.get('/', async (req, res) => {
   try{
       const blogData = await Blog.findAll({
-          include:[{model: User, attributes:'name'}],
-          order:[['blog_date', 'ASC']]
-      });
-      const blogs = blogData.map((blog) => blog.get({ plain: true }));
-      res.render('homepage', {blogs})
-  } catch (err) {
-      console.log(err);
-      res.status(500).json(err);
-  } 
+        include: [
+          {
+          model: User,
+          attributes: ['name']
+        },
+        {
+          model: Comment,
+          attributes: ["id", "comment_text"],
+          include:{
+            model:User, 
+            attributes:["name"]
+          }
+        }
+      ],
+
+      attributes: [
+        'id','title','blog_text',"blog_date"
+      ]
+      })
+
+      const blogs = blogData.map((blog) => blog.get({ plain: true }))
+
+      res.render('homepage', {blogs, loggedIn: req.session.logged_in})
+  } catch (err) {}
 })
+
+
 // GET /dashboard
 router.get('/dashboard', withAuth, async (req, res) => {
   try {
     const blogData = await Blog.findAll({
-      where: {id: req.session.userId},
-      include: [{model: User, attributes: 'name'}],
+      where: {id: req.session.user_id},
       order:[['blog_date', 'ASC']]
     });
 
     const userBlogs = blogData.map((blog) => blog.get({plain: true}))
 
     res.render('dashboard', {
-      loggedIn: req.session.loggedIn
+      loggedIn: req.session.logged_in,
+      userBlogs
     })
   } catch(err) {
     console.log(err)
     res.status(500).json(err)
   }
-  // TODO: Check if user is logged in
-  // If not logged in, kick them out to either / or /login
-  // loggedIn
-  // try{
-  //     const blogData = await Blog.findAll({
-  //       where: {id: req.session.userId},
-  //       include:[{model: User, attributes:'name'}],
-  //       order:[['blog_date', 'ASC']]
-  //     });
-  //     const myBlogs = blogData.map((blog) => blog.get({ plain: true }));
-  //     res.render('dashboard', {myBlogs})
-  // } catch (err) {
-  //     console.log(err);
-  //     res.status(500).json(err);
-  // } 
 })
 
 // GET /blogs/:blogId
-router.get('/blogs/:blogId', withAuth, async (req, res) => {
-  // TODO: Check if user is logged in
-  // If not logged in, kick them out to either / or /login
+router.get('/blogs/:id', withAuth, async (req, res) => {
 
   try{
       const blogData = await Blog.findByPk( req.params.id, {
-        include:[{model: User, attributes:'name'}],
+        include:[
+          {model: User, attributes:'name'},
+        {
+          model: Comment,
+          attributes: ['comment_text', 'comment_date'],
+          include: {model: User, attributes: ['name']}
+        }],
         order:[['blog_date', 'ASC']]
       });
       const myBlogs = blogData.map((blog) => blog.get({ plain: true }));
       res.render('dashboard', {
-        loggedIn: req.session.loggedIn,
+        loggedIn: req.session.logged_in,
         myBlogs})
   } catch (err) {
       console.log(err);
       res.status(500).json(err);
   } 
 })
-
-// router.get('/', async (req, res) => {
-//   res.render('homepage');
-// });
 
 // GET /login
 // Shows login form at Login.handlebars
