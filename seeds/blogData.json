@@ -4,4 +4,12 @@
 	"title": "cool blog!!",
 	"blog_text": "this is way cool",
 	"user_id": "1"
+},
+
+{
+	"blog_date": "2023-06-17T13:42:55.245Z",
+	"id": 2,
+	"title": "MVC-ing!!",
+	"blog_text": "Have you seen the views?",
+	"user_id": "2"
 }]

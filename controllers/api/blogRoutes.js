@@ -1,6 +1,9 @@
 const router = require('express').Router()
-const { Blog, Comment } = require('../../models');
+const { Blog, Comment, User } = require('../../models');
 const withAuth = require('../../utils/auth');
+
+
+
 
 //Get one blog
 
@@ -17,10 +20,6 @@ router.get('/:blog_id', withAuth, async (req, res) => {
           }],
           order:[['blog_date', 'ASC']]
         });
-        const myBlogs = blogData.map((blog) => blog.get({ plain: true }));
-        res.render('dashboard', {
-          loggedIn: req.session.logged_in,
-          myBlogs})
     } catch (err) {
         console.log(err);
         res.status(500).json(err);

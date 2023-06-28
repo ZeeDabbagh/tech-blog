@@ -8,8 +8,6 @@ router.get('/', async (req, res) => {
 
 
   try{
-      //const blogData = await Blog.findAll({})
-
       const blogData = await Blog.findAll({
         include: [
           {
@@ -46,14 +44,13 @@ router.get('/', async (req, res) => {
 router.get('/dashboard', withAuth, async (req, res) => {
   try {
     const blogData = await Blog.findAll({
-      where: {id: req.session.user_id},
+      where: {user_id: req.session.user_id},
       order:[['blog_date', 'ASC']]
     });
 
     const userBlogs = blogData.map((blog) => blog.get({plain: true}))
 
     res.render('dashboard', {
-      loggedIn: req.session.logged_in,
       userBlogs
     })
   } catch(err) {
@@ -65,7 +62,6 @@ router.get('/dashboard', withAuth, async (req, res) => {
 
 // GET /login
 router.get('/login', (req, res) => {
-
   if (req.session.loggedIn) {
     res.redirect('/');
     return;
@@ -75,7 +71,6 @@ router.get('/login', (req, res) => {
 });
 
 // GET /register
-
 router.get('/register', (req, res) => {
 
   if (req.session.loggedIn) {

@@ -1,5 +1,5 @@
 <div class="card">
-  <h2>{{title}}</h2>
+  <h2>{{blog.title}}</h2>
   <h6>{{user.name}}
     <span><small>{{formatDate blog_date}}</small></span></h6>
   <p>{{blog_text}}</p>
@@ -35,9 +35,9 @@
         Content:
         <textarea
           type="text"
-          id="blog-description"
-          defaultValue="{{blog_description}}"
-        >{{blog_description}}</textarea>
+          id="blog-text"
+          defaultValue="{{blog_text}}"
+        >{{blog_text}}</textarea>
       </label>
       <input type="submit" />
     </form>
