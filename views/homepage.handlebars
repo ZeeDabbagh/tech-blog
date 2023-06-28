@@ -4,7 +4,7 @@
 
         {{#if blogs.length}}
         {{#each blogs as |blog|}}
-        <a href="blogs/api/{{blog.id}}">
+        <a href="/blogs/{{blog.id}}">
             <h2 class="card-title btitle">{{blog.title}}</h2>
             <p class="card text"> <small class="text-muted">{{blog.user.name}} - {{formatDate blog.blog_date}}</small></p>
         </a>
