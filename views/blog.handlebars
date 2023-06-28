@@ -5,22 +5,22 @@
     <div>
         {{#if blog.comments.length}}
         <h6>Comments </h6>
-        {{#each blog.comments as |comment|}}
+        {{!-- {{#each blog.comments as |comment|}}
         <div>
             <p>{{comment.user.name}} <span><small>{{formatDate comment.comment_date}}</small></span></p>
             <p>{{comment.comment_text}}</p>
         </div>
-        {{/each}}
+        {{/each}} --}}
         {{/if}}
-                {{#if logged_in}}
+                {{!-- {{#if logged_in}}
         <form class="comment-form">
             <label><strong>Leave Comment Here:</strong></label>
             <textarea type="text" id="comment-text" class="input"></textarea>
             <button type="submit" class="btn">Submit Comment</button>
         </form>
         <script src="/js/createComments.js"></script>
-        {{/if}}
-    </div>
+        {{/if}} --}}
+    {{!-- </div>
         {{#if can_edit}}
         <button id="edit-btn">Edit</button>
         <button id="delete-btn">Delete</button>
@@ -39,4 +39,4 @@
 
         <script src="/js/edit-blog.js"></script>
         {{/if}}
-</div>
+</div> --}}

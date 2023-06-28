@@ -2,19 +2,34 @@ const router = require('express').Router()
 const { Blog, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-const withAuth000 = (req,res,next)=>{
-    next();
-}
+//Get one blog
+
+router.get('/:blog_id', withAuth, async (req, res) => {
+
+    try{
+        const blogData = await Blog.findByPk( req.params.blog_id, {
+          include:[
+            {model: User, attributes:'name'},
+          {
+            model: Comment,
+            attributes: ['comment_text', 'comment_date'],
+            include: {model: User, attributes: ['name']}
+          }],
+          order:[['blog_date', 'ASC']]
+        });
+        const myBlogs = blogData.map((blog) => blog.get({ plain: true }));
+        res.render('dashboard', {
+          loggedIn: req.session.logged_in,
+          myBlogs})
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    } 
+  })
+
 
 //Post new blog
-router.post('/', withAuth000, async (req, res) => {
-    
-    // Example request body
-    //     {
-    //         title: req.body.title,
-    //         blog_text: req.body.blog_text,
-    //         user_id: req.session.user_id
-    //     }
+router.post('/', withAuth, async (req, res) => {
     
     try {
         const newBlog = await Blog.create(req.body)
@@ -29,7 +44,7 @@ router.post('/', withAuth000, async (req, res) => {
 
 //Update a blog
 
-router.put('/:blog_id', withAuth000, async (req, res) => {
+router.put('/:blog_id', withAuth, async (req, res) => {
     try {
 
         const blog = await Blog.update({
@@ -54,7 +69,7 @@ router.put('/:blog_id', withAuth000, async (req, res) => {
 
 //Delete blog
 
-router.delete('/:blog_id', withAuth000, async (req, res) => {
+router.delete('/:blog_id', withAuth, async (req, res) => {
     try{
         const deleteBlog = await Blog.destroy({
             where:
@@ -75,7 +90,7 @@ router.delete('/:blog_id', withAuth000, async (req, res) => {
 })
 
 //Create new comment
-router.post('/:blog_id/comments', withAuth000, async (req, res) =>{
+router.post('/:blog_id/comments', withAuth, async (req, res) =>{
     try {
 
         const comment = await Comment.create({

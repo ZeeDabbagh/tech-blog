@@ -1,0 +1,26 @@
+:root {
+    --primary: #3d5852;
+    --secondary: #86938f;
+    --tertiary: #5e877f;
+    --quatrinary: #6c6b67;
+    --light: #e3e4e3;
+    --dark: #182c23;
+    --error: rgb(228, 46, 1);
+    --border-radius: 0.3rem;
+  }
+
+  .navbar-custom {
+    background-color: var(--secondary);
+    border-top: solid black;
+    padding:.5em;
+    
+  }
+
+  header {
+    background-color: var(--quatrinary);
+    padding:.5em;
+    border-bottom: solid black;
+    color: white;
+    font-weight: 700;
+  }
+

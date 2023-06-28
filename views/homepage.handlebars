@@ -1,9 +1,9 @@
 <div class="card">
     {{#if blogs.length}}
     {{#each blogs as |blog|}}
-    <a href="blog/{{blog.id}}">
+    <a href="blogs/{{blog.id}}">
         <h1 class="blog-title">{{blog.blog_title}}</h1>
-        <h3>Posted by {{blog.user.username}} on {{formatDate blog.date_created}}</h3>
+        <h3>Posted by {{blog.user.username}} on {{blog.date_created}}</h3>
     </a>
     <p>{{blog.blog_description}}</p>
     <hr></hr>
