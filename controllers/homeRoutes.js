@@ -40,26 +40,6 @@ router.get('/', async (req, res) => {
 })
 
 
-// GET /dashboard
-router.get('/dashboard', withAuth, async (req, res) => {
-  try {
-    const blogData = await Blog.findAll({
-      where: {user_id: req.session.user_id},
-      order:[['blog_date', 'ASC']]
-    });
-
-    const userBlogs = blogData.map((blog) => blog.get({plain: true}))
-
-    res.render('dashboard', {
-      userBlogs
-    })
-  } catch(err) {
-    console.log(err)
-    res.status(500).json(err)
-  }
-})
-
-
 // GET /login
 router.get('/login', (req, res) => {
   if (req.session.logged_in) {
