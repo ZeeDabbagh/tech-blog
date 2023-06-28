@@ -1,1 +1,0 @@
-// Handle the add comment form from blog.handlebars

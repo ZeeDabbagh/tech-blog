@@ -1,0 +1,33 @@
+<div class="card">
+    {{#if blogs.length}}
+    <h1>My Blogs:</h1>
+    <hr></hr>
+    <button id="create-btn">Create New Post</button>
+    {{#each blogs as |blog|}}
+    <a href="blog/edit/{{blog.id}}">
+        <h1 class="blog-title">{{blog.title}}</h1>
+    </a>
+    <p>{{blog.blog_text}}</p>
+
+    {{/each}}
+    {{else}}
+    <h1>No blogs to show</h1>
+    <button id="create-btn">Create New Post</button>
+    {{/if}}
+</div>
+
+
+<form class="blog-form card" style="display: none">
+    <label>Title:
+
+        <input class="input" type="text" id="title" class="input new-blog">
+    </label>
+    <label>
+        Content:
+        <textarea class="input" type="text" id="blog-text" class="input"></textarea>
+    </label>
+
+    <input type="submit">
+</form>
+
+<script src="./js/create-blog.js"></script>

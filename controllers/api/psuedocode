@@ -1,76 +1,76 @@
-const router = require('express').Router()
-const { Comment } = require('../../models');
-const withAuth = require('../../utils/auth');
+// const router = require('express').Router()
+// const { Comment } = require('../../models');
+// const withAuth = require('../../utils/auth');
 
-const withAuth000 = (req,res,next)=>{
-    next();
-}
-//Update existing comment
+// const withAuth000 = (req,res,next)=>{
+//     next();
+// }
+// //Update existing comment
 
-router.put('/:comment_id', withAuth000, async (req, res) => {
-    try {
-        const comment = await Comment.update({comment_text: req.body.comment_text},
-            {
-            where:  {
-                id: req.params.comment_id,
-                }
-            })
+// router.put('/:comment_id', withAuth000, async (req, res) => {
+//     try {
+//         const comment = await Comment.update({comment_text: req.body.comment_text},
+//             {
+//             where:  {
+//                 id: req.params.comment_id,
+//                 }
+//             })
 
-            if(comment) {
-                res.status(200).json(comment)
-            } else {
-                res.status(404).json({ message: 'No comment found with this ID'})
-            }
-    } catch(err) {
-        console.log(err);
-        res.status(500).json(err);
-    }
-})
-
-
-//Delete comment
-
-router.delete('/:comment_id', withAuth000, async (req, res) => {
-    try {
-        let bloguserid=null;
-        let commentuserid=null;
-
-        aComment = await Comment.findOne where id = comment_id. From that Object, get user_id
-        From that Object, get blog_id
-            commentuserid = aComment.user_id
-            blog_id = aComment.blog_id
-
-        Blog.findOne where id = blog_id. From that Object, get user_id
-
-        You now have two user_id's, one from Comment, and one from Blog
+//             if(comment) {
+//                 res.status(200).json(comment)
+//             } else {
+//                 res.status(404).json({ message: 'No comment found with this ID'})
+//             }
+//     } catch(err) {
+//         console.log(err);
+//         res.status(500).json(err);
+//     }
+// })
 
 
-        Do an if statement that checks if req.session.user_id who's logged in is either user_id's
+// //Delete comment
 
-        If true, then destroy comment where id = req.params.comment_id from the url
+// router.delete('/:comment_id', withAuth000, async (req, res) => {
+//     try {
+//         let bloguserid=null;
+//         let commentuserid=null;
+
+//         aComment = await Comment.findOne where id = comment_id. From that Object, get user_id
+//         From that Object, get blog_id
+//             commentuserid = aComment.user_id
+//             blog_id = aComment.blog_id
+
+//         Blog.findOne where id = blog_id. From that Object, get user_id
+
+//         You now have two user_id's, one from Comment, and one from Blog
 
 
-        if(that whole shebang of conditions) {
-            const comment = await Comment.destroy({
-                where: {
-                    id: req.params.comment_id,
-                    user_id: req.session.user_id
-                }
-            })
+//         Do an if statement that checks if req.session.user_id who's logged in is either user_id's
 
-            if (comment) {
-                res.status(200).json({message: 'Comment deleted'})
-            } else {
-                res.status(404).json({message: 'No comment found with this ID'})
-            }
+//         If true, then destroy comment where id = req.params.comment_id from the url
 
-        } else {
-            res.status(403).json({message:"Unauthorized. You are neither commet author or blog author"})
-        }
-    } catch(err) {
-        console.log(err);
-        res.status(500).json(err);
-    }
-})
 
-module.exports = router
+//         if(that whole shebang of conditions) {
+//             const comment = await Comment.destroy({
+//                 where: {
+//                     id: req.params.comment_id,
+//                     user_id: req.session.user_id
+//                 }
+//             })
+
+//             if (comment) {
+//                 res.status(200).json({message: 'Comment deleted'})
+//             } else {
+//                 res.status(404).json({message: 'No comment found with this ID'})
+//             }
+
+//         } else {
+//             res.status(403).json({message:"Unauthorized. You are neither commet author or blog author"})
+//         }
+//     } catch(err) {
+//         console.log(err);
+//         res.status(500).json(err);
+//     }
+// })
+
+// module.exports = router
