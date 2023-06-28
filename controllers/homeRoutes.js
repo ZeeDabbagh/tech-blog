@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
       console.log(blogs)
 
 
-      res.render('homepage', {blogs, loggedIn: req.session.logged_in})
+      res.render('homepage', {blogs, logged_in: req.session.logged_in})
 
   } catch (err) {
   }
@@ -62,7 +62,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
 
 // GET /login
 router.get('/login', (req, res) => {
-  if (req.session.loggedIn) {
+  if (req.session.logged_in) {
     res.redirect('/');
     return;
   }
@@ -73,7 +73,7 @@ router.get('/login', (req, res) => {
 // GET /register
 router.get('/register', (req, res) => {
 
-  if (req.session.loggedIn) {
+  if (req.session.logged_in) {
     res.redirect('/');
     return;
   }

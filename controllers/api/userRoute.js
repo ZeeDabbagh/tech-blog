@@ -58,7 +58,7 @@ router.post('/login', async (req, res) => {
             {
                 user: userData,
                 message: 'You are logged in!',
-                loggedIn: req.session.loggedIn
+                logged_in: req.session.logged_in
             })
         })
     } catch(err) {

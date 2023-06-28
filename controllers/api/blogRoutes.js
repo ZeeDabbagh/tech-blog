@@ -18,8 +18,11 @@ router.get('/:blog_id', withAuth, async (req, res) => {
             attributes: ['comment_text', 'comment_date'],
             include: {model: User, attributes: ['name']}
           }],
-          order:[['blog_date', 'ASC']]
         });
+
+        const blog = blogData.get({plain: true})
+        const canEdit = req.session.user_id === blog.user_id
+        res.render('blog', {blog, logged_in: req.session.logged_in, canEdit})
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
