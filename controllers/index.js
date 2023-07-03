@@ -8,6 +8,6 @@ const blogRoutes = require('./blogRoutes')
 router.use('/', homeRoutes)
 router.use('/api', apiRoutes)
 router.use('/dashboard', dashboardRoutes)
-router.use('blogs', blogRoutes)
+router.use('/blogs', blogRoutes)
 
 module.exports = router

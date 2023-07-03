@@ -3,7 +3,7 @@ const {Blog} = require('../models');
 const withAuth = require('../utils/auth');
 
 // GET /dashboard
-router.get('/dashboard', withAuth, async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
     try {
       const blogData = await Blog.findAll({
         where: {user_id: req.session.user_id},
@@ -11,8 +11,11 @@ router.get('/dashboard', withAuth, async (req, res) => {
       });
   
       const userBlogs = blogData.map((blog) => blog.get({plain: true}))
+      console.log(userBlogs)
+      console.log("*** keys ***")
+      console.log({logged_in: req.session.logged_in, blogs:userBlogs})
 
-      res.render('dashboard', {logged_in: req.session.logged_in, userBlogs})
+      res.render('dashboard', {logged_in: req.session.logged_in, blogs:userBlogs})
   
   
     } catch(err) {

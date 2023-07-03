@@ -1,13 +1,13 @@
 const blogForm = document.querySelector(".blog-form");
 const createBlogBtn = document.querySelector('#create-btn');
 
-// shows create new blog form once create new blog button is clicked 
+
 const showBlogForm = () => {
     blogForm.style.display = 'block';
     createBlogBtn.style.display = 'none';
 }
 
-// logic for creating a new blog post 
+
 const blogFormHandler = async (event) => {
     event.preventDefault();
     document.querySelector
@@ -31,6 +31,5 @@ const blogFormHandler = async (event) => {
     }
 };
 
-// event listeners  
 document.querySelector('.blog-form').addEventListener('submit', blogFormHandler);
 document.querySelector('#create-btn').addEventListener('click', showBlogForm);

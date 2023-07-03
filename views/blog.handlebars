@@ -1,12 +1,12 @@
 <div class="card">
   <h2>{{blog.title}}</h2>
-  <h6>{{user.name}}
-    <span><small>{{formatDate blog_date}}</small></span></h6>
-  <p>{{blog_text}}</p>
+  <h6>{{blog.user.name}}
+    <span><small>{{formatDate blog.blog_date}}</small></span></h6>
+  <p>{{blog.blog_text}}</p>
   <div class="card">
-    {{#if comments.length}}
+    {{#if blog.comments.length}}
       <h6>Comments </h6>
-      {{#each comments as |comment|}}
+      {{#each blog.comments as |comment|}}
         <div>
           <p>{{comment.user.name}}
             <span><small>{{formatDate comment.comment_date}}</small></span></p>
@@ -23,7 +23,7 @@
       <script src="/js/createComments.js"></script>
     {{/if}}
   </div>
-  {{#if can_edit}}
+  {{#if canEdit}}
     <button id="edit-btn">Edit</button>
     <button id="delete-btn">Delete</button>
     <form class="blog-form" style="display: none">
