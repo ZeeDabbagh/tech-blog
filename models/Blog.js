@@ -15,20 +15,14 @@ Blog.init(
         title: {
             type: DataTypes.STRING,
             allowNull: false,
-            // validate: {
-            //     len: [1, 100]
-            //   }
         },
         blog_text: {
             type: DataTypes.TEXT,
             allowNull: false,
-            // validate: {
-            //     len: [0,1000],
-            // }
         },
         blog_date: {
             type: DataTypes.TEXT,
-            defaultValue: DataTypes.NOW,
+            defaultValue: Date.now(),
             allowNull: false
         },
         user_id: {

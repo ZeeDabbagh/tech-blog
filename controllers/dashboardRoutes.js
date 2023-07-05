@@ -24,4 +24,10 @@ router.get('/', withAuth, async (req, res) => {
     }
   })
 
+  router.get('/addblog', (req, res) => {
+
+    res.render('new-blog')
+
+})
+
   module.exports = router

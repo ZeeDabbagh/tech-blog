@@ -5,7 +5,7 @@ const addCommentHandler = async (event) => {
 
     if (commentText) {
         const id = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1]
-        const response = await fetch(`/api/comments/blog/${id}/comments`, {
+        const response = await fetch(`/api/blogs/${id}`, {
             method: 'POST',
             body: JSON.stringify({ commentText }),
             headers: { 'Content-Type': 'application/json' },

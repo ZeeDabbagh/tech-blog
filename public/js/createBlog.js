@@ -1,10 +1,10 @@
 const blogForm = document.querySelector(".blog-form");
-const createBlogBtn = document.querySelector('#create-btn');
-
+const createBtn = document.querySelector('#create-btn');
 
 const showBlogForm = () => {
     blogForm.style.display = 'block';
-    createBlogBtn.style.display = 'none';
+    createBtn.style.display = 'none';
+
 }
 
 
@@ -13,13 +13,13 @@ const blogFormHandler = async (event) => {
     document.querySelector
     console.log("creating a blog")
 
-    const blogTitle = document.querySelector('#title').value.trim();
-    const blogText = document.querySelector('#blog-text').value.trim();
+    const title = document.querySelector('#title').value.trim();
+    const blog_text = document.querySelector('#blog-text').value.trim();
 
-    if (blogTitle && blogText) {
+    if (title && blog_text) {
         const response = await fetch('/api/blogs', {
             method: 'POST',
-            body: JSON.stringify({ blogTitle, blogText }),
+            body: JSON.stringify({title, blog_text }),
             headers: { 'Content-Type': 'application/json' },
         });
 
@@ -31,5 +31,6 @@ const blogFormHandler = async (event) => {
     }
 };
 
+// event listeners  
 document.querySelector('.blog-form').addEventListener('submit', blogFormHandler);
 document.querySelector('#create-btn').addEventListener('click', showBlogForm);
