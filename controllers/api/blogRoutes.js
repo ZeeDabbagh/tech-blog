@@ -67,7 +67,7 @@ router.delete('/:blog_id', withAuth, async (req, res) => {
 //Create new comment
 router.post('/:blog_id', withAuth, async (req, res) =>{
     // try {
-
+console.log('HERE ' + req.body.comment_text + 'HERE')
         const comment = await Comment.create({
             comment_text: req.body.comment_text,
             user_id: req.session.user_id,

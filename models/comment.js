@@ -18,7 +18,7 @@ Comment.init(
         },
         comment_date: {
             type: DataTypes.TEXT,
-            defaultValue: DataTypes.NOW,
+            defaultValue: Date.now(),
             allowNull: false
         },
         blog_id: {
