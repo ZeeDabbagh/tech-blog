@@ -10,8 +10,8 @@ Comment.init(
         id: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            primaryKey: true,
             autoIncrement: true,
+            primaryKey: true,
         },
         comment_text: {
             type: DataTypes.STRING,
