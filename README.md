@@ -7,6 +7,7 @@
 - [Usage](#Usage)
 - [Installation](#Installation)
 - [Questions](#Questions)
+- [Deployed] (#Deployed Link)
 - [License](#License)
 
 ## Description
@@ -24,6 +25,9 @@ Through github and run through node. Alternatively you can navigate to the deplo
 
 ## Questions
 Come say hi and ask any questions on www.github.com/zeeDabbagh
+
+## Deployed link
+[TechBlog](https://tech-corner-934588cc1bac.herokuapp.com/login)
 
 ## License
 Licensed under the [MIT](https://choosealicense.com/licenses/mit/) license.
