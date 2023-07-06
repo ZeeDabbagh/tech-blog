@@ -1,24 +1,27 @@
 <div class="card">
-  <h2>{{blog.title}}</h2>
+  <h2 class="btitle">{{blog.title}}</h2>
   <h6>{{blog.user.name}}
     <span><small>{{formatDate blog.blog_date}}</small></span></h6>
   <p>{{blog.blog_text}}</p>
   <div class="card">
+
     {{#if blog.comments.length}}
       <h6>Comments </h6>
+      <hr/>
       {{#each blog.comments as |comment|}}
-        <div>
-          <p>{{comment.user.name}}
+        <div class="card">
+          <p class="btitle">{{comment.user.name}}
             <span><small>{{formatDate comment.comment_date}}</small></span></p>
-          <p>{{comment.comment_text}}</p>
+          <p class="bbody">{{comment.comment_text}}</p>
         </div>
       {{/each}}
     {{/if}}
     {{#if logged_in}}
       <form class="comment-form">
         <label><strong>Leave Comment Here:</strong></label>
-        <textarea type="text" id="comment-text" class="input"></textarea>
-        <button type="submit" class="btn">Submit Comment</button>
+        <hr/>
+        <textarea type="text" id="comment-text" class="input mx-2"></textarea>
+        <button type="submit" class="comment-form-btn">Submit Comment</button>
       </form>
       <script src="/js/createComment.js"></script>
     {{/if}}
@@ -29,18 +32,19 @@
     <form class="blog-form" style="display: none">
       <label>Title:
 
-        <input type="text" id="blog-title" value="{{blog_title}}" />
+        <input type="text" id="blog-title" value="{{blog.title}}" />
       </label>
       <label>
         Content:
         <textarea
           type="text"
           id="blog-text"
-          defaultValue="{{blog_text}}"
-        >{{blog_text}}</textarea>
+          defaultValue="{{blog.blog_text}}"
+        >{{blog.blog_text}}</textarea>
       </label>
       <input type="submit" />
     </form>
+        
 
     <script src="/js/editBlog.js"></script>
   {{/if}}

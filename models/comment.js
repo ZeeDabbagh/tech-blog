@@ -17,8 +17,8 @@ Comment.init(
             type: DataTypes.STRING,
         },
         comment_date: {
-            type: DataTypes.TEXT,
-            defaultValue: Date.now(),
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
             allowNull: false
         },
         blog_id: {

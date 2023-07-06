@@ -1,11 +1,10 @@
 <div class="card">
     {{#if blogs.length}}
     <h1>My Blogs:</h1>
-    <hr></hr>
-    <button id="create-btn">Create New Post</button>
+
     {{#each blogs as |blog|}}
     <a href="/blogs/{{blog.id}}">
-        <h1 class="blog-title">{{blog.title}}</h1>
+        <h1 class="blog-title btitle">{{blog.title}}</h1>
     </a>
     <p>{{blog.blog_text}}</p>
 
@@ -15,19 +14,36 @@
     <button id="create-btn">Create New Post</button>
     {{/if}}
 </div>
+    <hr></hr>
+    <button class="login100-form-btn" id="create-btn">Create New Post</button>
 
+<form class="blog-form" style="display: none">
+    <div class="form-group">
+            <label >Title:
 
-<form class="blog-form card" style="display: none">
-    <label>Title:
-
-        <input class="input" type="text" id="title" class="input new-blog">
+        <input type="text" id="title" class="input new-blog mb-2">
     </label>
-    <label>
+    </div>
+    <div class="form-group">
+          <label>
         Content:
-        <textarea class="input" type="text" id="blog-text" class="input"></textarea>
-    </label>
+        <textarea type="text" id="blog-text" class="input"></textarea>
+    </label>  
+    </div>
+
 
         <input type="submit">
 </form>
-
+{{!-- 
+<form class="blog-form" style="display: none;">
+  <div class="form-group">
+    <label type="text" id="title" class="input">Blog Title</label>
+    <input type="text" class="form-control input" id="title" placeholder="Blog title">
+  </div>
+  <div class="form-group">
+    <label>Blog Content</label>
+    <textarea type="text" class="form-control" id="blog-text" placeholder="Blog Content">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form> --}}
 <script src="/js/createBlog.js"></script>

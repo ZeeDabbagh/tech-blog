@@ -21,7 +21,7 @@ router.post('/', withAuth, async (req, res) => {
 
 router.put('/:blog_id', withAuth, async (req, res) => {
     try {
-
+        
         const blog = await Blog.update({
             title: req.body.title, 
             blog_text: req.body.blog_text
@@ -66,7 +66,7 @@ router.delete('/:blog_id', withAuth, async (req, res) => {
 
 //Create new comment
 router.post('/:blog_id', withAuth, async (req, res) =>{
-    // try {
+    try {
 console.log('HERE ' + req.body.comment_text + 'HERE')
         const comment = await Comment.create({
             comment_text: req.body.comment_text,
@@ -75,10 +75,10 @@ console.log('HERE ' + req.body.comment_text + 'HERE')
         })
         res.status(200).json(comment)
 
-    // // } catch(err) {
-    //     console.log(err)
-    //     res.status(500).json(err)
-    // }
+    } catch(err) {
+        console.log(err)
+        res.status(500).json(err)
+    }
 });
 
 

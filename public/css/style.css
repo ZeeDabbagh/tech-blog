@@ -102,3 +102,14 @@
     background: var(--dark);
   }
 
+  .comment-form-btn {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #fff;
+    text-transform: uppercase;
+    display: block;
+    border-radius: 10px;
+    background: var(--tertiary);
+    padding: 0 25px;
+    margin: 5px;
+  }
